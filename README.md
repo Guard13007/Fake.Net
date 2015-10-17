@@ -5,6 +5,18 @@ Fake.Net is a fake internet all in one server.
 Why? Because my school was making a LAN of Raspberry Pi's and I thought it
 would be entertaining to set up a fake internet.
 
+## Notes
+
+1. Fuck Linux's permissions system. I can't run on port 80 without being root,
+   but root CAN'T ACCESS MY FILES?
+2. Fuck Font Awesome. It worked wonderfully when I used it with SkillTrack.
+   Here? Doesn't work at all. I've gone through every troubleshooting step I
+   could find, and nothing fixes it.
+3. Why did nothing about OpenResty or LuaRocks or Lapis EVER say I needed to
+   make sure I was working with Lua 5.1? Seriously, what the fuck. Hours
+   wasted for no good reason.
+4. DON'T LIE ABOUT IPTABLES YOU DICK.
+
 ## Setup Fake.Net
 
 These instructions are for setting up Fake.Net for development
