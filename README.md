@@ -7,11 +7,12 @@ would be entertaining to set up a fake internet.
 
 ## Setup Fake.Net
 
-These instructions are for setting up Fake.Net for development or just running it.
+These instructions are for setting up Fake.Net for development
+... or for just running it.
 
 1. Install Lua 5.1
-   Make sure there is a "lua" executable accessible (either in `PATH` or manually
-   specified by `--with-lua=/path/to`)
+   Make sure there is a "lua" executable accessible (either in `PATH` or
+   manually specified by `--with-lua=/path/to`)
 2. Install OpenResty
    1. Download: https://openresty.org/#Download
    2. tar xzvf openresty-VERSION.tar.gz
@@ -44,17 +45,24 @@ These instructions are for setting up Fake.Net for development or just running i
    6. Create Fake.Net database (from another terminal, as PostgreSQL is now
       running in the first)
       `createdb fake_net`
-      (if developing, also make a development database with `createdb fake_net_dev`)
+      (if developing, also make a development database called fake_net_dev)
 6. Start moonc watching for changes and recompiling:
    `moonc -w .`
    Note that this will only watch for changes to .moon files already existing.
    To compile new source files, you will need to restart this.
 6. Start Lapis
    1. Navigate to where you cloned the repository.
-   2. Edit the `config.moon` with the password you set up for PostgreSQL
-      (Note: in both production and development!)
-   3. Start Lapis with `lapis server production`
+   2. Rename `secret.moon.example` to `secret.moon` and use the password you
+      set up for PostgreSQL.
+      (You also probably want to set the session secret to something random.)
+   3. Start Lapis with `sudo lapis server production`
       (unless you are developing, in which case, use `lapis server development`)
+      * Note, there are stupid permission errors I still have to work out
+        because FUCK ME IF I WANT TO DO SOMETHING EVEN SLIGHTLY NOT THE WAY
+        LINUX DEMANDS THINGS BE DONE &gt;.&lt;
+7. To get the server accessible from port 80:
+   `iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 1080`
+   Excuse me, never mind, I was lied to. FUCK ALL OF YOU.
 
 ## Running Fake.Net
 
