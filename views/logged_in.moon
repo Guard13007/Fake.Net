@@ -5,7 +5,7 @@ class DefaultLayout extends html.Widget
         html_5 ->
             head ->
                 element "meta", charset: "UTF-8"
-                title @title or "Lapis Rage"
+                title @title or "Tweaker"
                 element "link", rel: "stylesheet", href: "static/pure-min-0.6.0.css"
                 style "
                     body {

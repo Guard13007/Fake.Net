@@ -9,7 +9,7 @@ do
           element("meta", {
             charset = "UTF-8"
           })
-          title(self.title or "Lapis Rage")
+          title(self.title or "Tweaker")
           element("link", {
             rel = "stylesheet",
             href = "static/pure-min-0.6.0.css"

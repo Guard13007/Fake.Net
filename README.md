@@ -64,7 +64,7 @@ These instructions are for setting up Fake.Net for development
    To compile new source files, you will need to restart this.
 6. Start Lapis
    1. Navigate to where you cloned the repository.
-   2. Rename `secret.moon.example` to `secret.moon` and use the password you
+   2. Copy `secret.moon.example` to `secret.moon` and use the password you
       set up for PostgreSQL.
       (You also probably want to set the session secret to something random.)
    3. Start Lapis with `sudo lapis server production`

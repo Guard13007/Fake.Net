@@ -9,11 +9,12 @@ do
           element("meta", {
             charset = "UTF-8"
           })
-          title(self.title or "Lapis Rage")
-          return element("link", {
+          title(self.title or "Tweaker")
+          element("link", {
             rel = "stylesheet",
             href = "static/pure-min-0.6.0.css"
           })
+          return style("\n                    body {\n                        background: rgb(195, 205, 250);\n                    }\n                    #container {\n                        margin: 0 auto;\n                        overflow: auto;\n                        padding: 10px;\n                        padding-top: 65px;\n                        width: 900px;\n                    }\n                    .box {\n                        background: white;\n                        border-radius: 0.5em;\n                        /*border:1px solid rgb(190, 200, 240);*/\n                    }\n                    .inner {\n                        padding: 0.55em;\n                    }\n                ")
         end)
         return body(function()
           return self:content_for("inner")
