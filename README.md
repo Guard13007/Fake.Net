@@ -1,0 +1,62 @@
+# Fake.Net
+
+Fake.Net is a fake internet all in one server.
+
+Why? Because my school was making a LAN of Raspberry Pi's and I thought it
+would be entertaining to set up a fake internet.
+
+## Setup Fake.Net
+
+These instructions are for setting up Fake.Net for development or just running it.
+
+1. Install Lua 5.1
+   Make sure there is a "lua" executable accessible (either in `PATH` or manually
+   specified by `--with-lua=/path/to`)
+2. Install OpenResty
+   1. Download: https://openresty.org/#Download
+   2. tar xzvf openresty-VERSION.tar.gz
+   3. cd openresty-VERSION/
+   4. ./configure
+   5. make
+   6. make install
+3. Install `luarocks`
+   1. wget http://luarocks.org/releases/luarocks-2.2.2.tar.gz
+      (or latest version)
+   2. tar zxpf luarocks-2.2.2.tar.gz
+   3. cd luarocks-2.2.2/
+   4. ./configure --lua-version=5.1
+      (or manually specify path to "lua" executable by `--with-lua=/path/to`)
+   5. sudo make bootstrap
+4. Install Lapis & Moonscript
+   1. sudo luarocks install lapis
+   2. sudo luarocks install moonscript
+5. Install / Setup PostgreSQL
+   1. Install via your package manager (or whatever, as long as it works)
+   2. Change postgres user password
+      `sudo passwd postgres`
+      (Note: Keep this password for later! You will need it.)
+   3. Switch to postgres user
+      `sudo -i -u postgres`
+   4. Initialize database cluster
+      `initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'`
+   5. Start PostgreSQL (will need to be running for your server to work!)
+      `postgres -D '/var/lib/postgres/data'`
+   6. Create Fake.Net database (from another terminal, as PostgreSQL is now
+      running in the first)
+      `createdb fake_net`
+      (if developing, also make a development database with `createdb fake_net_dev`)
+6. Start moonc watching for changes and recompiling:
+   `moonc -w .`
+   Note that this will only watch for changes to .moon files already existing.
+   To compile new source files, you will need to restart this.
+6. Start Lapis
+   1. Navigate to where you cloned the repository.
+   2. Edit the `config.moon` with the password you set up for PostgreSQL
+      (Note: in both production and development!)
+   3. Start Lapis with `lapis server production`
+      (unless you are developing, in which case, use `lapis server development`)
+
+## Running Fake.Net
+
+TODO: Write this section about how to set it up for automatic
+      running / un-attended running. Non-development.
