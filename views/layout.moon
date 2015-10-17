@@ -1,6 +1,6 @@
 html = require "lapis.html"
 
-class extends html.Widget
+class Layout extends html.Widget
     content: =>
         html_5 ->
             head ->

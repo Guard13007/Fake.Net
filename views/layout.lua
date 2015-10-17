@@ -1,4 +1,5 @@
 local html = require("lapis.html")
+local Layout
 do
   local _parent_0 = html.Widget
   local _base_0 = {
@@ -27,7 +28,7 @@ do
       return _parent_0.__init(self, ...)
     end,
     __base = _base_0,
-    __name = nil,
+    __name = "Layout",
     __parent = _parent_0
   }, {
     __index = function(cls, name)
@@ -48,5 +49,6 @@ do
   if _parent_0.__inherited then
     _parent_0.__inherited(_parent_0, _class_0)
   end
+  Layout = _class_0
   return _class_0
 end
