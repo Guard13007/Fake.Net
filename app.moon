@@ -1,5 +1,3 @@
-lapis = require "lapis"
-
 import Model from require "lapis.db.model"
 
 class Users extends Model
@@ -37,9 +35,18 @@ class Posts extends Model
     --@url_params: (req, ...) =>
     --    @url_for user, { id: @id }, ...
 
+lapis = require "lapis"
+
+import autoload from require "lapis.util"
+views = autoload("views")
+
 class App extends lapis.Application
     @enable "etlua"
-    layout: require "views.layout"
+    @before_filter =>
+        if @session.logged_in
+            @app.layout = views.logged_in --require "views.logged_in"
+        else
+            @app.layout = views.homepage --require "views.homepage"
 
     [index: "/"]: =>
         render: true
@@ -47,14 +54,12 @@ class App extends lapis.Application
     [user: "/:user"]: =>
         user = Users\find name: @params.user
         unless user
-            return render: "index"
-            --TODO define what to do when...
-            -- make this a 404, a special 404 that asks if you want to create the user??
-            --alt: make this generate a new user and populate it then
+            return redirect_to: @url_for "index"
+            --TODO make this generate a new user and populate it then
 
         print user.name
         print user.id
         print user.icon
         print user.created_at
         print user.updated_at
-        render: "index"
+        render: true

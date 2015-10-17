@@ -1,4 +1,3 @@
-local lapis = require("lapis")
 local Model
 Model = require("lapis.db.model").Model
 local Users
@@ -109,11 +108,14 @@ do
   end
   Posts = _class_0
 end
+local lapis = require("lapis")
+local autoload
+autoload = require("lapis.util").autoload
+local views = autoload("views")
 local App
 do
   local _parent_0 = lapis.Application
   local _base_0 = {
-    layout = require("views.layout"),
     [{
       index = "/"
     }] = function(self)
@@ -129,7 +131,7 @@ do
       })
       if not (user) then
         return {
-          render = "index"
+          redirect_to = self:url_for("index")
         }
       end
       print(user.name)
@@ -138,7 +140,7 @@ do
       print(user.created_at)
       print(user.updated_at)
       return {
-        render = "index"
+        render = true
       }
     end
   }
@@ -169,6 +171,13 @@ do
   _base_0.__class = _class_0
   local self = _class_0
   self:enable("etlua")
+  self:before_filter(function(self)
+    if self.session.logged_in then
+      self.app.layout = views.logged_in
+    else
+      self.app.layout = views.homepage
+    end
+  end)
   if _parent_0.__inherited then
     _parent_0.__inherited(_parent_0, _class_0)
   end
