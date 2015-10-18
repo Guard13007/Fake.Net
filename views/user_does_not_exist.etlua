@@ -1,0 +1,7 @@
+<div id="container">
+    <div class="pure-controls box inner" style="text-align:center; max-width:900px;">
+        <h3>User <%= params.username %> does not exist.</h3>
+        <a href="<%= url_for "index" %>" class="pure-button pure-button-primary">Go Back</a>
+        <p><%= error %></p>
+    </div>
+</div>

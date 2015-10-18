@@ -109,20 +109,63 @@ do
   Posts = _class_0
 end
 local lapis = require("lapis")
+local respond_to
+respond_to = require("lapis.application").respond_to
 local autoload
 autoload = require("lapis.util").autoload
 local views = autoload("views")
-local App
+local Tweaker
 do
   local _parent_0 = lapis.Application
   local _base_0 = {
     [{
       index = "/"
-    }] = function(self)
-      return {
-        render = true
-      }
-    end,
+    }] = respond_to({
+      GET = function(self)
+        return {
+          render = true
+        }
+      end,
+      POST = function(self)
+        if self.session.logged_in then
+          self:write({
+            redirect_to = self:url_for("index")
+          })
+        end
+        if self.params.username == "" then
+          self.error = "YOU NEED ENTER A USERNAME DAMMIT )" .. self.params.username .. "("
+          return {
+            render = views.user_does_not_exist
+          }
+        end
+        self.user = Users:find({
+          name = self.params.username
+        })
+        if user then
+          if self.params.email then
+            return self:write({
+              status = 403
+            }, "User " .. tostring(self.params.username) .. " already exists.")
+          else
+            self.session.logged_in = true
+            self.session.username = self.params.username
+            return self:write({
+              redirect_to = self:url_for("index")
+            })
+          end
+        else
+          if self.params.email then
+            print("fuck me")
+            return self:write("TEST CONFIRMED")
+          else
+            self.error = "BLAH"
+            return {
+              render = views.user_does_not_exist
+            }
+          end
+        end
+      end
+    }),
     [{
       user = "/:user"
     }] = function(self)
@@ -151,7 +194,7 @@ do
       return _parent_0.__init(self, ...)
     end,
     __base = _base_0,
-    __name = "App",
+    __name = "Tweaker",
     __parent = _parent_0
   }, {
     __index = function(cls, name)
@@ -181,6 +224,6 @@ do
   if _parent_0.__inherited then
     _parent_0.__inherited(_parent_0, _class_0)
   end
-  App = _class_0
+  Tweaker = _class_0
   return _class_0
 end
