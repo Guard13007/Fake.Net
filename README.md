@@ -7,15 +7,7 @@ would be entertaining to set up a fake internet.
 
 ## Notes
 
-1. Fuck Linux's permissions system. I can't run on port 80 without being root,
-   but root CAN'T ACCESS MY FILES?
-2. Fuck Font Awesome. It worked wonderfully when I used it with SkillTrack.
-   Here? Doesn't work at all. I've gone through every troubleshooting step I
-   could find, and nothing fixes it.
-3. Why did nothing about OpenResty or LuaRocks or Lapis EVER say I needed to
-   make sure I was working with Lua 5.1? Seriously, what the fuck. Hours
-   wasted for no good reason.
-4. DON'T LIE ABOUT IPTABLES YOU DICK.
+1. See commit history for former rantings.
 
 ## Setup Fake.Net
 
@@ -40,9 +32,10 @@ These instructions are for setting up Fake.Net for development
    4. ./configure --lua-version=5.1
       (or manually specify path to "lua" executable by `--with-lua=/path/to`)
    5. sudo make bootstrap
-4. Install Lapis & Moonscript
+4. Install Lapis & Moonscript & Lapis Console (optional? probably would break without it)
    1. sudo luarocks install lapis
    2. sudo luarocks install moonscript
+   3. sudo luarocks install lapis-console
 5. Install / Setup PostgreSQL
    1. Install via your package manager (or whatever, as long as it works)
    2. Change postgres user password
