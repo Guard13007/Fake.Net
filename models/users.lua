@@ -32,18 +32,28 @@ do
   local self = _class_0
   self.primary_key = {
     "id",
-    "name"
+    "username"
   }
   self.timestamp = true
   self.constraints = {
-    name = function(self, value)
+    username = function(self, value)
       if value.len() > 255 then
         local _ = "Username cannot be more than 255 characters"
       end
       if Users:find({
-        name = value
+        username = value
       }) then
         return "That username is already taken"
+      end
+    end,
+    name = function(self, value)
+      if value.len() > 255 then
+        return "Name cannot be more than 255 characters"
+      end
+    end,
+    email = function(self, value)
+      if value.len() > 255 then
+        return "Email cannot be more than 255 characters"
       end
     end,
     icon = function(self, value) end

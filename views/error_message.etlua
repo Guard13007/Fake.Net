@@ -1,6 +1,7 @@
 <div id="container">
     <div class="pure-controls box inner" style="text-align:center; max-width:900px;">
         <h3><%= error %></h3>
+        <!--TODO consider making this a mini-form with hidden values to pass back the data we had and repopulate those elements-->
         <a href="<%= url_for(route_name) %>" class="pure-button pure-button-primary">Go Back</a>
     </div>
 </div>

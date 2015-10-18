@@ -1,4 +1,9 @@
-import create_table, drop_table, types from require "lapis.db.schema"
+import create_table
+    drop_table
+    types
+    rename_column
+    add_column
+    from require "lapis.db.schema"
 
 {
     [1]: =>
@@ -29,4 +34,9 @@ import create_table, drop_table, types from require "lapis.db.schema"
             {"created_at", types.time}
             {"updated_at", types.time}
         }
+
+    [3]: =>
+        rename_column "users", "name", "username"
+        add_column "users", "name", types.varchar
+        add_column "users", "email", types.varchar
 }

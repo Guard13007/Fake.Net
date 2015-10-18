@@ -21,15 +21,21 @@ class Tweaker extends lapis.Application
             render: true
 
         POST: =>
+            -- switch to GET if logged_in
             if @session.logged_in
                 @write redirect_to: @url_for "index" --TODO test that view is fixed appropriately
 
+            -- make sure we're passed non-empty data
             if @params.username == ""
                 @error = "You need to enter a username."
                 return render: views.error_message
+            if @params.email == ""
+                @error = "You need to enter an email address."
+                return render: views.error_message
 
-            @user = Users\find name: @params.username
-            if user
+            -- figure out what to do
+            @user = Users\find username: @params.username
+            if @user
                 if @params.email
                     --if passing email and user exists, fail to register
                     @write status: 403, "User #{@params.username} already exists."
@@ -51,14 +57,14 @@ class Tweaker extends lapis.Application
     }
 
     [user: "/:user"]: =>
-        user = Users\find name: @params.user
-        unless user
+        @user = Users\find username: @params.user
+        unless @user
             return redirect_to: @url_for "index"
             --TODO make this generate a new user and populate it then
 
-        print user.name
-        print user.id
-        print user.icon
-        print user.created_at
-        print user.updated_at
+        print @user.name
+        print @user.id
+        print @user.icon
+        print @user.created_at
+        print @user.updated_at
         render: true

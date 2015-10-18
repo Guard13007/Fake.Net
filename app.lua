@@ -30,10 +30,16 @@ do
             render = views.error_message
           }
         end
+        if self.params.email == "" then
+          self.error = "You need to enter an email address."
+          return {
+            render = views.error_message
+          }
+        end
         self.user = Users:find({
-          name = self.params.username
+          username = self.params.username
         })
-        if user then
+        if self.user then
           if self.params.email then
             return self:write({
               status = 403
@@ -61,19 +67,19 @@ do
     [{
       user = "/:user"
     }] = function(self)
-      local user = Users:find({
-        name = self.params.user
+      self.user = Users:find({
+        username = self.params.user
       })
-      if not (user) then
+      if not (self.user) then
         return {
           redirect_to = self:url_for("index")
         }
       end
-      print(user.name)
-      print(user.id)
-      print(user.icon)
-      print(user.created_at)
-      print(user.updated_at)
+      print(self.user.name)
+      print(self.user.id)
+      print(self.user.icon)
+      print(self.user.created_at)
+      print(self.user.updated_at)
       return {
         render = true
       }
