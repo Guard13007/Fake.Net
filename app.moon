@@ -54,7 +54,7 @@ class Tweaker extends lapis.Application
                         username: @params.username
                         name: "" --NOTE temporary default
                         email: @params.email
-                        icon: "1" --NOTE temporary default
+                        icon: 1 --NOTE temporary default
                     }
                     if not @user
                         @error = "Something went wrong while creating your account.<br><span style='font-weight:normal;'>Yell at the administrator.</span>"

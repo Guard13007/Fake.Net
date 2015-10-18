@@ -37,27 +37,26 @@ do
   self.timestamp = true
   self.constraints = {
     username = function(self, value)
-      if value.len() > 255 then
-        local _ = "Username cannot be more than 255 characters"
-      end
-      if Users:find({
+      if #value > 255 then
+        return "Username cannot be more than 255 characters"
+      elseif Users:find({
         username = value
       }) then
         return "That username is already taken"
       end
     end,
     name = function(self, value)
-      if value.len() > 255 then
+      if #value > 255 then
         return "Name cannot be more than 255 characters"
       end
     end,
     email = function(self, value)
-      if value.len() > 255 then
+      if #value > 255 then
         return "Email cannot be more than 255 characters"
       end
     end,
     icon = function(self, value)
-      return true
+      return false
     end
   }
   self.relations = {

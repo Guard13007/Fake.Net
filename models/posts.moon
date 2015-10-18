@@ -5,7 +5,7 @@ class Posts extends Model
 
     @constraints: {
         text: (value) =>
-            if value.len! > 255
+            if #value > 255
                 "Tweaks cannot be more than 255 characters"
     }
     @relations: {

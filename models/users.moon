@@ -6,19 +6,19 @@ class Users extends Model
 
     @constraints: {
         username: (value) =>
-            if value.len! > 255
+            if #value > 255
                 "Username cannot be more than 255 characters"
-            if Users\find username: value
+            elseif Users\find username: value
                 "That username is already taken"
         name: (value) =>
-            if value.len! > 255
+            if #value > 255
                 "Name cannot be more than 255 characters"
         email: (value) =>
-            if value.len! > 255
+            if #value > 255
                 "Email cannot be more than 255 characters"
         icon: (value) =>
             --TODO needs to verify the file exists on server
-            return true --NOTE temporary until I come up with a verification / file upload system,
+            return false --NOTE temporary until I come up with a verification / file upload system,
                         --      and by that, I mean learn how to use Lapis to do those things
     }
     @relations: {

@@ -33,7 +33,7 @@ do
   self.timestamp = true
   self.constraints = {
     text = function(self, value)
-      if value.len() > 255 then
+      if #value > 255 then
         return "Tweaks cannot be more than 255 characters"
       end
     end

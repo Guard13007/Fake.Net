@@ -59,7 +59,7 @@ do
               username = self.params.username,
               name = "",
               email = self.params.email,
-              icon = "1"
+              icon = 1
             })
             if not self.user then
               self.error = "Something went wrong while creating your account.<br><span style='font-weight:normal;'>Yell at the administrator.</span>"
