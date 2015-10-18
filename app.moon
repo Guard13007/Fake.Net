@@ -4,7 +4,6 @@ import respond_to from require "lapis.application"
 import autoload from require "lapis.util"
 views = autoload("views")
 
---import Users, Posts from require "models" --no idea if this is valid, might break everything!
 Users = require "models.users"
 Posts = require "models.posts"
 
