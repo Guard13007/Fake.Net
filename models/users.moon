@@ -18,6 +18,8 @@ class Users extends Model
                 "Email cannot be more than 255 characters"
         icon: (value) =>
             --TODO needs to verify the file exists on server
+            return true --NOTE temporary until I come up with a verification / file upload system,
+                        --      and by that, I mean learn how to use Lapis to do those things
     }
     @relations: {
         {"posts", has_many: "Posts"}

@@ -1,4 +1,5 @@
 local lapis = require("lapis")
+local console = require("lapis.console")
 local respond_to
 respond_to = require("lapis.application").respond_to
 local autoload
@@ -10,6 +11,7 @@ local Tweaker
 do
   local _parent_0 = lapis.Application
   local _base_0 = {
+    ["/console"] = console.make(),
     [{
       index = "/"
     }] = respond_to({
@@ -53,8 +55,23 @@ do
           end
         else
           if self.params.email then
-            print("fuck me")
-            return self:write("TEST CONFIRMED")
+            self.user = Users:create({
+              username = self.params.username,
+              name = "",
+              email = self.params.email,
+              icon = "1"
+            })
+            if not self.user then
+              self.error = "Something went wrong while creating your account.<br><span style='font-weight:normal;'>Yell at the administrator.</span>"
+              return {
+                render = views.error_message
+              }
+            end
+            self.session.logged_in = true
+            self.session.username = self.params.username
+            return self:write({
+              redirect_to = self:url_for("index")
+            })
           else
             self.error = "User " .. tostring(self.params.username) .. " does not exist."
             return {

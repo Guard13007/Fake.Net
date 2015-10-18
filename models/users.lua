@@ -56,7 +56,9 @@ do
         return "Email cannot be more than 255 characters"
       end
     end,
-    icon = function(self, value) end
+    icon = function(self, value)
+      return true
+    end
   }
   self.relations = {
     {

@@ -1,4 +1,5 @@
 lapis = require "lapis"
+console = require "lapis.console"
 
 import respond_to from require "lapis.application"
 import autoload from require "lapis.util"
@@ -14,6 +15,8 @@ class Tweaker extends lapis.Application
             @app.layout = views.logged_in
         else
             @app.layout = views.homepage
+
+    "/console": console.make!
 
     [index: "/"]: respond_to {
         GET: =>
@@ -46,10 +49,21 @@ class Tweaker extends lapis.Application
                     @write redirect_to: @url_for "index" --TODO check this works!
             else
                 if @params.email
-                    print "fuck me"
                     --if user does not exist and passing email, register
-                    --TODO register new user!
-                    @write "TEST CONFIRMED"
+                    @user = Users\create {
+                        username: @params.username
+                        name: "" --NOTE temporary default
+                        email: @params.email
+                        icon: "1" --NOTE temporary default
+                    }
+                    if not @user
+                        @error = "Something went wrong while creating your account.<br><span style='font-weight:normal;'>Yell at the administrator.</span>"
+                        return render: views.error_message
+
+                    --now you're logged in too!
+                    @session.logged_in = true
+                    @session.username = @params.username
+                    @write redirect_to: @url_for "index" --TODO make sure this works!
                 else
                     --user doesn't exist, failed log in
                     @error = "User #{@params.username} does not exist."
