@@ -19,7 +19,7 @@ class Users extends Model
         icon: (value) =>
             --TODO needs to verify the file exists on server
             return false --NOTE temporary until I come up with a verification / file upload system,
-                        --      and by that, I mean learn how to use Lapis to do those things
+                         --      and by that, I mean learn how to use Lapis to do those things
     }
     @relations: {
         {"posts", has_many: "Posts"}

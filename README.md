@@ -5,37 +5,120 @@ Fake.Net is a fake internet all in one server.
 Why? Because my school was making a LAN of Raspberry Pi's and I thought it
 would be entertaining to set up a fake internet.
 
-## Notes
+## Progress
 
-1. See commit history for former rantings.
+- Tweaker (Twitter): 10%
+- Nothing else yet!
 
-## Setup Fake.Net
+## Install (to Run)
 
-These instructions are for setting up Fake.Net for development
-... or for just running it.
+(see Install (to Dev) below if you want to develop Fake.Net)
 
 1. Install Lua 5.1
-   Make sure there is a "lua" executable accessible (either in `PATH` or
-   manually specified by `--with-lua=/path/to`)
-2. Install OpenResty
-   1. Download: https://openresty.org/#Download
-   2. tar xzvf openresty-VERSION.tar.gz
-   3. cd openresty-VERSION/
-   4. ./configure
-   5. make
-   6. make install
-3. Install `luarocks`
-   1. wget http://luarocks.org/releases/luarocks-2.2.2.tar.gz
-      (or latest version)
-   2. tar zxpf luarocks-2.2.2.tar.gz
-   3. cd luarocks-2.2.2/
-   4. ./configure --lua-version=5.1
-      (or manually specify path to "lua" executable by `--with-lua=/path/to`)
-   5. sudo make bootstrap
-4. Install Lapis & Moonscript & Lapis Console (optional? probably would break without it)
-   1. sudo luarocks install lapis
-   2. sudo luarocks install moonscript
-   3. sudo luarocks install lapis-console
+   Note: There needs to be a Lua executable named `lua` or LuaRocks will fail to recognize it.
+2. Install [OpenResty](https://openresty.org/)
+3. Install LuaRocks
+   ```bash
+   wget http://luarocks.org/releases/luarocks-2.2.2.tar.gz
+   #or a newer version!
+   tar zxpf luarocks-2.2.2.tar.gz
+   cd luarocks-2.2.2/
+   ./configure --lua-version=5.1
+   #if it complains about unable to find lua, you may need to use --with-lua=/path/to
+   # or --with-lua-bin=/path/to/lua
+   sudo make bootstrap
+   ```
+4. Install Lapis
+   Using LuaRocks: `sudo luarocks install lapis`
+
+(This script is written assuming you are a sudoer and using apt-get:)
+
+```bash
+# Lua
+sudo apt-get install lua5.1
+#verify that it exists, and is named 'lua'! if not, you need to make it accessible that way *somewhere*
+
+# OpenResty
+wget (OPENRESTY DL URL)
+tar xzvf ngx_openresty-VERSION.tar.gz
+cd ngx_openresty-VERSION/
+./configure
+make
+sudo make install
+cd ..
+
+# LuaRocks
+wget http://luarocks.org/releases/luarocks-2.2.2.tar.gz
+#or a newer version!
+tar zxpf luarocks-2.2.2.tar.gz
+cd luarocks-2.2.2/
+./configure --lua-version=5.1
+#if it complains about unable to find lua, you may need to use --with-lua=/path/to
+# or --with-lua-bin=/path/to/lua
+sudo make bootstrap
+
+# Lapis
+sudo luarocks install lapis
+```
+
+## Install (to Run)
+
+(see Install (to Dev) below if you want to develop Fake.Net)
+
+1. Install Lua 5.1
+   Note: There needs to be a Lua executable named `lua` or LuaRocks will fail to recognize it.
+2. Install [OpenResty](https://openresty.org/)
+3. Install LuaRocks
+   ```bash
+   wget http://luarocks.org/releases/luarocks-2.2.2.tar.gz
+   #or a newer version!
+   tar zxpf luarocks-2.2.2.tar.gz
+   cd luarocks-2.2.2/
+   ./configure --lua-version=5.1
+   #if it complains about unable to find lua, you may need to use --with-lua=/path/to
+   # or --with-lua-bin=/path/to/lua
+   sudo make bootstrap
+   ```
+4. Install Lapis & Moonscript & Lapis Console
+   Using LuaRocks:
+   ```bash
+   sudo luarocks install lapis
+   sudo luarocks install moonscript
+   sudo luarocks install lapis-console
+   ```
+
+(This script is written assuming you are a sudoer and using apt-get:)
+
+```bash
+# Lua
+sudo apt-get install lua5.1
+#verify that it exists, and is named 'lua'! if not, you need to make it accessible that way *somewhere*
+
+# OpenResty
+wget (OPENRESTY DL URL)
+tar xzvf ngx_openresty-VERSION.tar.gz
+cd ngx_openresty-VERSION/
+./configure
+make
+sudo make install
+cd ..
+
+# LuaRocks
+wget http://luarocks.org/releases/luarocks-2.2.2.tar.gz
+#or a newer version!
+tar zxpf luarocks-2.2.2.tar.gz
+cd luarocks-2.2.2/
+./configure --lua-version=5.1
+#if it complains about unable to find lua, you may need to use --with-lua=/path/to
+# or --with-lua-bin=/path/to/lua
+sudo make bootstrap
+
+# Lapis & Moonscript & Lapis Console
+sudo luarocks install lapis
+sudo luarocks install moonscript
+sudo luarocks install lapis-console
+```
+
 5. Install / Setup PostgreSQL
    1. Install via your package manager (or whatever, as long as it works)
    2. Change postgres user password
@@ -68,8 +151,3 @@ These instructions are for setting up Fake.Net for development
 7. To get the server accessible from port 80:
    `iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 1080`
    Excuse me, never mind, I was lied to. FUCK ALL OF YOU.
-
-## Running Fake.Net
-
-TODO: Write this section about how to set it up for automatic
-      running / un-attended running. Non-development.
